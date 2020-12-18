@@ -1,8 +1,10 @@
 exports.run = async (client, message, args, level) => {
     let date = new Date();
-    let half = date.getHours() / 2 + (date.getMinutes() > 30 ? 0.5 : 0) + (date.getMinutes() >= 15 && date.getMinutes() <= 45 ? 0.25 : 0);
-    let realtime = date.getHours() + ":" + date.getMinutes();
-    message.channel.send(realtime + " => " + half);
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let shion = client.emojis.get('789583909348048947');
+    if(minutes < 30) return message.channel.send(`Less than a quarter ${shion} has passed after ${hour}!`);
+    else return message.channel.send(`It's less than a quarter ${shion} to ${hour+1}!`);
   };
   
   exports.conf = {
