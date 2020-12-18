@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
     enabled: true,
     guildOnly: false,
     aliases: ['shion'],
-    permLevel: "Bot Tester", // IMPORTANT! SET THIS EARLY!!!
+    permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
     logCommand: false
   };
   
