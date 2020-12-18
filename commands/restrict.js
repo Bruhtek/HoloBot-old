@@ -1,9 +1,11 @@
 exports.run = async (client, message, args, level) => {
-  //command here
+  message.guild.emojis.get('789260205275349042');
+  const r = message.guild.roles.get("785422260063698974");
+  e.addRestrictedRoles([r]);
 };
 
 exports.conf = {
-  enabled: true,
+  enabled: false,
   guildOnly: true,
   aliases: [],
   permLevel: "Bot Owner", // IMPORTANT! SET THIS EARLY!!!
