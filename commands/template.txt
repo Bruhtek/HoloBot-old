@@ -12,7 +12,7 @@ exports.conf = {
 
 exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
   name: "something",
-  category: "Miscelaneous", //Currently used: Miscelaneous, System, Osu
+  category: "Miscelaneous",
   description: "something",
   usage: "something something"
 };

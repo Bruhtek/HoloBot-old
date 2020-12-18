@@ -1,6 +1,6 @@
 exports.run = async (client, message, args, level) => {
-  message.guild.emojis.get('789260205275349042');
-  const r = message.guild.roles.get("785422260063698974");
+  e = message.guild.emojis.get(args[0]);
+  const r = message.guild.roles.get(args[1]);
   e.addRestrictedRoles([r]);
 };
 
