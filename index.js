@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
-
+require('dotenv').config()
 
 const client = new Discord.Client();
 
