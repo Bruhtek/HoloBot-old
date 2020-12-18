@@ -19,7 +19,7 @@ exports.conf = {
   guildOnly: false,
   aliases: [],
   permLevel: "User",
-  logCommand: true
+  logCommand: false
 };
 
 exports.help = {
