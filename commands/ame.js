@@ -20,7 +20,7 @@ exports.conf = {
     guildOnly: false,
     aliases: [],
     permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
-    logCommand: false
+    logCommand: true
 };
 
 exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
