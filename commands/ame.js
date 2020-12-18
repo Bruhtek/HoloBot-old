@@ -20,12 +20,12 @@ exports.conf = {
     guildOnly: false,
     aliases: [],
     permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
-    logCommand: true
+    logCommand: false
 };
 
 exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
     name: "ame",
     category: "Hololive", //Currently used: Miscelaneous, System, Osu
-    description: "Thats what I did to your mom last night!",
+    description: "Insult a person's mother",
     usage: "ame"
 };
