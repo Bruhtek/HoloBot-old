@@ -1,0 +1,18 @@
+exports.run = async (client, message, args, level) => {
+  //command here
+};
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
+  logCommand: false
+};
+
+exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
+  name: "something",
+  category: "Miscelaneous", //Currently used: Miscelaneous, System, Osu
+  description: "something",
+  usage: "something something"
+};

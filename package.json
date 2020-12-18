@@ -1,0 +1,32 @@
+{
+  "name": "holobot",
+  "version": "0.1.0",
+  "description": "HololiveBot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^7.1.0",
+    "chalk": "^4.1.0",
+    "discord.js": "11.5.1",
+    "dotenv": "^8.2.0",
+    "enmap": "^5.3.1",
+    "express": "^4.17.1",
+    "jimp": "^0.14.0",
+    "moment": "^2.27.0",
+    "moment-duration-format": "^2.3.2",
+    "node-fetch": "^2.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bruhtek/HololiveBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bruhtek/HololiveBot/issues"
+  },
+  "homepage": "https://github.com/Bruhtek/HololiveBot#readme"
+}
