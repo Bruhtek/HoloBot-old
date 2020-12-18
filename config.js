@@ -5,9 +5,11 @@ const config = {
   // Bot Admins, level 9 by default. Array of user ID strings.
   "admins": ["397420846781693953", "273889248648757249"],
 
+  "testers": [],
+
   //DONT LEAVE ANYTHING BLANK
   "defaultSettings" : {
-    "prefix": "'",
+    "prefix": "holo ",
     "modRole": "Moderator",
     "adminRole": "Administrator",
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
@@ -24,37 +26,46 @@ const config = {
       check: () => true
     },
 
-    // This is your permission level, the staff levels should always be above the rest of the roles.
-    { level: 2,
-      // This is the name of the role.
-      name: "Moderator",
-      // The following lines check the guild the message came from for the roles.
-      // Then it checks if the member that authored the message has the role.
-      // If they do return true, which will allow them to execute the command in question.
-      // If they don't then return false, which will prevent them from executing the command.
-      check: (message) => {
-        try {
-          const modRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
-          if (modRole && message.member.roles.has(modRole.id)) return true;
-        } catch (e) {
-          return false;
-        }
-      }
+    { level: 6,
+      name: "Bot Tester",
+      check: (message) => config.testers.includes(message.author.id)
     },
 
-    { level: 3,
-      name: "Administrator", 
-      check: (message) => {
-        try {
-          const adminRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
-          return (adminRole && message.member.roles.has(adminRole.id));
-        } catch (e) {
-          return false;
-        }
-      }
-    },
+
+    //#region Server Mod and Admin 
+    // // This is your permission level, the staff levels should always be above the rest of the roles.
+    // { level: 5,
+    //   // This is the name of the role.
+    //   name: "Moderator",
+    //   // The following lines check the guild the message came from for the roles.
+    //   // Then it checks if the member that authored the message has the role.
+    //   // If they do return true, which will allow them to execute the command in question.
+    //   // If they don't then return false, which will prevent them from executing the command.
+    //   check: (message) => {
+    //     try {
+    //       const modRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
+    //       if (modRole && message.member.roles.has(modRole.id)) return true;
+    //     } catch (e) {
+    //       return false;
+    //     }
+    //   }
+    // },
+
+    // { level: 6,
+    //   name: "Administrator", 
+    //   check: (message) => {
+    //     try {
+    //       const adminRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
+    //       return (adminRole && message.member.roles.has(adminRole.id));
+    //     } catch (e) {
+    //       return false;
+    //     }
+    //   }
+    // },
+    //#endregion
+
     // This is the server owner.
-    { level: 4,
+    { level: 7,
       name: "Server Owner", 
       // Simple check, if the guild owner id matches the message author's ID, then it will return true.
       // Otherwise it will return false.
