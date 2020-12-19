@@ -5,7 +5,7 @@ exports.run = async (client, message, args, level) => {
     const nick = "Gawr Gura";
     message.guild.channels
         .find(channel => channel.id === message.channel.id)
-        .createWebhook(nick, link).catch(console.log)
+        .createWebhook(nick, link).catch(e => client.logger.error(e))
         .then(webhook => {
             const wb = new WebhookClient(`${webhook.id}`,`${webhook.token}`);
             wb.send("a");
