@@ -25,6 +25,10 @@ module.exports = async (client, message) => {
         }).catch(e => client.logger.error(e));
   }
 
+  if((message.content.startsWith('b') || message.content.startsWith('B')) && message.author.id == "600078171198586899") {
+    message.react("🇦");
+  }
+
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.
   if (message.content.indexOf(client.settings.prefix) !== 0) return;
