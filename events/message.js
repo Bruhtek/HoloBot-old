@@ -6,6 +6,7 @@ module.exports = async (client, message) => {
   const settings = message.settings = client.getSettings(message.guild);
 
   // Checks if the bot was mentioned, with no message after it, returns the prefix.
+  
   const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
   if (message.content.match(prefixMention)) {
     return message.reply(`My prefix on this guild is \`${client.settings.prefix}\``);
