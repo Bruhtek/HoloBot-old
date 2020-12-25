@@ -30,6 +30,10 @@ module.exports = async (client, message) => {
     message.react("🇦");
   }
 
+  if(message.channel.id == "786153350982795294" && !message.member.roles.has("785422260063698974")) {
+    message.delete();
+  }
+
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.
   if (message.content.indexOf(client.settings.prefix) !== 0) return;
