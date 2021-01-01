@@ -15,14 +15,15 @@ module.exports = async (client, message) => {
   if(message.content.startsWith(`I'm `) && message.content.length > 4) {
     const link = "https://cdn.myanimelist.net/r/360x360/images/characters/12/413065.jpg?s=c9020da943303fdb7f40c4b2ab383bbb";
     const nick = `Marine "Senchou" Houshou`;
-    message.guild.channels
+    message.guild.channels.cache
         .find(channel => channel.id === message.channel.id)
-        .createWebhook(nick, link).catch(console.log)
-        .then(webhook => {
-            const wb = new WebhookClient(`${webhook.id}`,`${webhook.token}`);
-            wb.send(`Hi ${message.content.slice(4)}`);
-            wb.send("I'm HORNY!!!");
-            wb.delete();
+        .createWebhook(nick, {
+          avatar: link
+        }).catch(console.log)
+        .then(async webhook => {
+            await webhook.send(`Hi ${message.content.slice(4)}`);
+            await webhook.send("I'm HORNY!!!");
+            webhook.delete();
         }).catch(e => client.logger.error(e));
   }
 
@@ -30,7 +31,7 @@ module.exports = async (client, message) => {
     message.react("🇦");
   }
 
-  if(message.channel.parent.id == "786153273186975765" && !message.member.roles.has("785422260063698974")) {
+  if(message.channel.parent.id == "786153273186975765" && !message.member.roles.cache.has("785422260063698974")) {
     message.delete();
     return;
   }
