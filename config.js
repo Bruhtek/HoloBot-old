@@ -15,7 +15,9 @@ const config = {
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
   },
 
-    // PERMISSION LEVEL DEFINITIONS.
+  neeeChance: 10,
+
+  // PERMISSION LEVEL DEFINITIONS.
 
   permLevels: [
     // This is the lowest permisison level, this is for non-roled users.
@@ -85,6 +87,7 @@ const config = {
       check: (message) => message.client.config.ownerID === message.author.id
     }
   ]
+
 };
 
 module.exports = config;
