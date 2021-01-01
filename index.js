@@ -4,7 +4,7 @@ const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 require('dotenv').config()
 
-const client = new Discord.Client();
+const client = new Discord.Client({ disableMentions: 'everyone' });
 
 const keepAlive = require('./server');
 client.config = require("./config.js");

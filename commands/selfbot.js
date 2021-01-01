@@ -7,15 +7,13 @@ exports.run = async (client, msg, args, level) => {
   const link = person.user.avatarURL;
   const nick = person.user.username;
   console.log(nick);
-  msg.guild.channels
+  msg.guild.channels.cache
     .find(channel => channel.id === args[1])
     .createWebhook(nick, link).catch(console.log)
-    .then(webhook => {
-      //webhook.edit("Buka (Minionki vibes)", link);
-      const wb = new WebhookClient(`${webhook.id}`,`${webhook.token}`);
+    .then(async webhook => {
       let message = args.slice(2).join(" ");
-      wb.send(message);
-      wb.delete();
+      await webhook.send(message);
+      webhook.delete();
       msg.delete(1);
     }).catch(e => console.log(e));
 };
