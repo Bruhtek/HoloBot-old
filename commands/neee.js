@@ -25,7 +25,8 @@ exports.run = async (client, message, args, level) => {
     guildOnly: true,
     aliases: ['ne', 'nee', 'neee', 'neeee', 'neeeee'],
     permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
-    logCommand: false
+    logCommand: false,
+    ratelimit: 60000
   };
   
   exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
