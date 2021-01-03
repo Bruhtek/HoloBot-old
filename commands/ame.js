@@ -21,7 +21,8 @@ exports.conf = {
     guildOnly: false,
     aliases: ['amelia'],
     permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
-    logCommand: false
+    logCommand: false,
+    ratelimit: 60000
 };
 
 exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
