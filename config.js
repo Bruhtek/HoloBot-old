@@ -28,12 +28,6 @@ const config = {
       check: () => true
     },
 
-    { level: 6,
-      name: "Bot Tester",
-      check: (message) => config.testers.includes(message.author.id)
-    },
-
-
     //#region Server Mod and Admin 
     // // This is your permission level, the staff levels should always be above the rest of the roles.
     // { level: 5,
@@ -72,6 +66,11 @@ const config = {
       // Simple check, if the guild owner id matches the message author's ID, then it will return true.
       // Otherwise it will return false.
       check: (message) => message.channel.type === "text" ? (message.guild.ownerID === message.author.id ? true : false) : false
+    },
+
+    { level: 8,
+      name: "Bot Tester",
+      check: (message) => config.testers.includes(message.author.id)
     },
 
     // Bot Admin has some limited access like rebooting the bot or reloading commands.
