@@ -17,6 +17,7 @@ const config = {
 
   neeeChance: 10,
 
+  ratelimit: 30000,
   // PERMISSION LEVEL DEFINITIONS.
 
   permLevels: [

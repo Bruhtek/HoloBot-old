@@ -1,4 +1,5 @@
 const { WebhookClient } = require('discord.js');
+const ratelimit = new Set();
 
 module.exports = async (client, message) => {
   if (message.author.bot) return;
@@ -88,5 +89,16 @@ module.exports = async (client, message) => {
   if(cmd.conf.logCommand) {
     client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
   }
-  cmd.run(client, message, args, level);
+
+  if (ratelimit.has(message.author.id + cmd.help.name) && level < 8) {
+    message.channel.send("You're too fast! Wait a bit! (Ratelimited)");
+  } else {
+    cmd.run(client, message, args, level);
+    var timeout = cmd.conf.ratelimit != undefined ? cmd.conf.ratelimit : client.config.ratelimit;
+    ratelimit.add(message.author.id + cmd.help.name);
+    setTimeout(() => {
+      ratelimit.delete(message.author.id + cmd.help.name);
+    }, timeout)
+  }
+  
 };
