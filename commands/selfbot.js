@@ -23,7 +23,8 @@ exports.conf = {
   guildOnly: true,
   aliases: ["sbot"],
   permLevel: "Bot Owner", // IMPORTANT! SET THIS EARLY!!!
-  logCommand: true
+  logCommand: true,
+  ratelimit: 60000
 };
 
 exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!

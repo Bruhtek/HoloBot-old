@@ -43,7 +43,8 @@ exports.conf = {
   guildOnly: false,
   aliases: ["h", "halp"],
   permLevel: "User",
-  logCommand: false
+  logCommand: false,
+  ratelimit: 60000
 };
 
 exports.help = {
