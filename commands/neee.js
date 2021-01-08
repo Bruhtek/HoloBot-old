@@ -1,3 +1,5 @@
+const { OpusEncoder } = require('@discordjs/opus');
+
 exports.run = async (client, message, args, level) => {
     if (message.member.voice.channel) {
         const connection = await message.member.voice.channel.join();
