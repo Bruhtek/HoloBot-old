@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
+const readdirp = require('readdirp');
 const Enmap = require("enmap");
 require('dotenv').config()
 
@@ -20,11 +21,12 @@ client.settings = client.config.defaultSettings;
 
 const init = async () => {
 
-  const cmdFiles = await readdir("./commands/");
+  const cmdFiles = await readdirp.promise("./commands/", {fileFilter: '*.js'});
+  console.log(cmdFiles);
   client.logger.log(`Loading a total of ${cmdFiles.length} commands.`);
   cmdFiles.forEach(f => {
-    if (!f.endsWith(".js")) return;
-    const response = client.loadCommand(f);
+    if (!f.path.endsWith(".js")) return;
+    const response = client.loadCommand(f.path);
     if (response) console.log(response);
   });
 
