@@ -10,9 +10,9 @@ exports.conf = {
   logCommand: false
 };
 
-exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
-  name: "something",
+exports.help = { // MOST IMPORTANT COMMAND PART!!!!
+  name: "",
   category: "Miscelaneous",
-  description: "something",
-  usage: "something something"
+  description: "",
+  usage: ""
 };
