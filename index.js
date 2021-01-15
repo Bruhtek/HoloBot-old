@@ -22,7 +22,6 @@ client.settings = client.config.defaultSettings;
 const init = async () => {
 
   const cmdFiles = await readdirp.promise("./commands/", {fileFilter: '*.js'});
-  console.log(cmdFiles);
   client.logger.log(`Loading a total of ${cmdFiles.length} commands.`);
   cmdFiles.forEach(f => {
     if (!f.path.endsWith(".js")) return;
