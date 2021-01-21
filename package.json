@@ -21,6 +21,7 @@
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.11.13",
     "node-fetch": "^2.6.1",
+    "osu-api": "0.0.3",
     "readdirp": "^3.5.0"
   },
   "repository": {
