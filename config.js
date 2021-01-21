@@ -18,8 +18,11 @@ const config = {
   neeeChance: 10,
 
   ratelimit: 30000,
-  // PERMISSION LEVEL DEFINITIONS.
 
+  domain: "localhost",
+  port: 8080,
+
+  // PERMISSION LEVEL DEFINITIONS.
   permLevels: [
     // This is the lowest permisison level, this is for non-roled users.
     { level: 0,

@@ -21,6 +21,9 @@ client.aliases = new Enmap();
 
 client.settings = client.config.defaultSettings;
 
+const GuildSettings = require("./schemes/settingsSchema");
+const Dashboard = require("./dashboard/dashboard");
+
 const init = async () => {
 
   const cmdFiles = await readdirp.promise("./commands/", {fileFilter: '*.js'});
@@ -47,7 +50,8 @@ const init = async () => {
   }
 
   keepAlive();
-  client.login(process.env.TOKEN);
+  await client.login(process.env.TOKEN);
+  Dashboard(client);
 };
 
 init();
