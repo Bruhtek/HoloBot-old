@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 module.exports = (client) => {
 
-  client.uri = `mongodb+srv://${process.env.mongousername}:${process.env.mongopassword}@holobot.qj2dt.mongodb.net/${process.env.mongodbname}?retryWrites=true&w=majority`
+  client.uri = `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPASSWORD}@holobot.qj2dt.mongodb.net/${process.env.MONGODBNAME}?retryWrites=true&w=majority`
   
 
   /*
