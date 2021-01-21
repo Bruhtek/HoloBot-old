@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Discord = require("discord.js");
 const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
@@ -10,9 +11,10 @@ const client = new Discord.Client({ disableMentions: 'everyone' });
 const keepAlive = require('./server');
 client.config = require("./config.js");
 
-
 client.logger = require("./modules/Logger");
 require("./modules/functions.js")(client);
+
+client.connector = mongoose.connect(client.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
 client.commands = new Enmap();
 client.aliases = new Enmap();
