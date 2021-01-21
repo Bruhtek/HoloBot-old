@@ -2,16 +2,41 @@ var osuapi = require("osu-api");
 var osu = new osuapi.Api(process.env.OSUTOKEN);
 const { MessageEmbed } = require("discord.js");
 
+const mongoose = require('mongoose');
+const userSchema = require.main.require('./schemes/osuUserSchema.js')
+const OsuUser = mongoose.model('osuuser', userSchema, 'osuuser')
+
+async function createOsuUser(discordID, osuUsername, osuMode) {
+  return new OsuUser({
+    discordID: discordID,
+    osuUsername: osuUsername,
+    osuMode: osuMode,
+  }).save()
+}
+
+async function findOsuUser(discordID) {
+  return await OsuUser.findOne({ discordID: discordID });
+}
+
 exports.run = async (client, message, args, level) => {
   let mode = args[0];
   let player = args[1];
 
+  connector = mongoose.connect( client.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
+  let osuUser = await connector.then(async () => {
+    return findOsuUser(message.author.id)
+  })
+
   if(mode == undefined)
+    if(osuUser) mode = osuUser.osuMode;
+    else
       return message.reply("You havent provided any correct mode. Accepted ones are `osu` `taiko` `CtB` `mania`");
 
-
   if(player == undefined)
-      return message.reply("You havent provided any nickname");
+    if(osuUser) player = osuUser.osuUsername;
+    else
+      return message.reply("You havent provided any nickname!");
 
   if (mode == "osu") {
     osu.setMode(osuapi.Modes.osu);
@@ -48,7 +73,20 @@ exports.run = async (client, message, args, level) => {
     .addField(`**Level: ${profile.level}** (Play Count: ${profile.playcount})`,`Accuracy: ${parseFloat(profile.accuracy).toFixed(2)} | PP: ${profile.pp_raw}`)
     .addField(`**Hit count:**`, `${profile.count300}/${profile.count100}/${profile.count50}`)
     .setDescription(`**:clock1130: Time played:** ${parseFloat(profile.total_seconds_played / 3600).toFixed(2)}h`)
-    message.channel.send({ embed });
+    await message.channel.send({ embed });
+
+    //saving settings for user
+    if (!osuUser) {
+      await message.channel.send("You haven't saved your settings! Would you like to do that now?");
+      await message.channel.send("The only thing that will be stored would be your discord id and ingame username and mode");
+      const res = await client.awaitReply(message);
+      if(res.toLowerCase() == "yes" || res.toLowerCase() == "yep" || res.toLowerCase() == "y") {
+        osuUser = await createOsuUser(message.author.id, player, mode);
+        message.channel.send("Success!");
+      }
+    } 
+
+    mongoose.connection.close();
   });
 }
 
