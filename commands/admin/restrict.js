@@ -1,4 +1,19 @@
-const db = require('quick.db');
+const mongoose = require('mongoose');
+const restrictSchema = require.main.require('./schemes/restrictSchema.js')
+const Restrict = mongoose.model('restrict', restrictSchema, 'restrict')
+
+async function findRestrict(userid, restrictType, restrictid) {
+  return await Restrict.findOne({ userId: userid, restrictType: restrictType, restrictId: restrictid })
+}
+
+async function createRestrict(userid, restrictType, restrictid) {
+  return new Restrict({
+    userId: userid,
+    restrictType: restrictType,
+    restrictId: restrictid,
+    date: Date.now()
+  }).save()
+}
 
 exports.run = async (client, message, args, level) => {
     // should we add or remove the property?
@@ -14,10 +29,10 @@ exports.run = async (client, message, args, level) => {
 
     //should we add it to channels or roles?
     if(args[1].toLowerCase() == "role") {
-      var channel = false;
+      var restrictType = 0;
       toBan = message.guild.roles.cache.get(args[2]);
     } else if(args[1].toLowerCase() == "channel") {
-      var channel = true;
+      var restrictType = 1;
       toBan = message.mentions.channels.first();
     } else {
       return message.reply("Wrong restrict mode! Use `role` or `channel`!");
@@ -28,15 +43,20 @@ exports.run = async (client, message, args, level) => {
       message.reply("You either didn't mention any role/channel or user!");
     }
     
-    var querry = "restricted." + user.id + "." + toBan.id;
-    
-    if(remove) {
-      db.delete(querry);
-    } else {
-      db.set(querry, true);
+    connector = mongoose.connect( client.uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
+    let restrict = await connector.then(async () => {
+      return findRestrict(user.id, restrictType, toBan.id);
+    })
+
+    if (!restrict) {
+      restrict = await createRestrict(user.id, restrictType, toBan.id);
     }
+
+    //TODO: add option to remove restriction
+
     message.channel.send(args[0] + " successful to " + args[1] + ": `" + toBan.name + "`, for: `"+  user.displayName + "`");
-    message.channel.send("Current status: `" + db.get(querry) + "`");
+    //message.channel.send("Current status: `" + db.get(querry) + "`");
   };
   
   exports.conf = {

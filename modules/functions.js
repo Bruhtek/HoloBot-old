@@ -2,6 +2,9 @@ const fetch = require("node-fetch");
 
 module.exports = (client) => {
 
+  client.uri = `mongodb+srv://${process.env.mongousername}:${process.env.mongopassword}@holobot.qj2dt.mongodb.net/${process.env.mongodbname}?retryWrites=true&w=majority`
+  
+
   /*
   PERMISSION LEVEL FUNCTION
 
