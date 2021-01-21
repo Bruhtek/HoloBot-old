@@ -5,7 +5,7 @@ const config = {
   // Bot Admins, level 9 by default. Array of user ID strings.
   "admins": ["397420846781693953", "273889248648757249"],
 
-  "testers": [],
+  "testers": ["751838537124544562"],
 
   //DONT LEAVE ANYTHING BLANK
   "defaultSettings" : {

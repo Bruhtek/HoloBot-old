@@ -24,12 +24,14 @@ exports.run = async (client, message, args, level) => {
       let user = await connector.then(async () => {
         return findUser(username)
       })
-    
+      
       if (!user) {
         user = await createUser(username, id)
       }
 
       console.log(user);
+
+      mongoose.connection.close();
     }catch (error) { 
       message.channel.send("could not connect");    
       client.logger.error(error);
@@ -40,7 +42,7 @@ exports.run = async (client, message, args, level) => {
     enabled: false,
     guildOnly: false,
     aliases: [],
-    permLevel: "Bot Owner", // IMPORTANT! SET THIS EARLY!!!
+    permLevel: "Bot Tester", // IMPORTANT! SET THIS EARLY!!!
     logCommand: false
   };
   
