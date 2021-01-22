@@ -37,7 +37,7 @@ module.exports = async (client) => {
     }));
     //#endregion
 
-    console.log(`http://${client.config.domain}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`);
+    //console.log(`http://${client.config.domain}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`);
 
     //initializing
     app.use(session({
