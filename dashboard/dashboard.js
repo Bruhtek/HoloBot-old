@@ -29,7 +29,7 @@ module.exports = async (client) => {
     passport.use(new Strategy({
         clientID: process.env.ID,
         clientSecret: process.env.SECRET,
-        callbackURL: `http://${process.env.DOMAIN}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`,
+        callbackURL: `http://${process.env.DOMAIN}${process.env.PORT == 80 ? "" : `:${process.env.PORT}`}/callback`,
         scope: ["identify", "guilds"]
     },
     (accessToken, refreshToken, profile, done) => {
@@ -37,7 +37,7 @@ module.exports = async (client) => {
     }));
     //#endregion
 
-    //console.log(`http://${process.env.DOMAIN}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`);
+    //console.log(`http://${process.env.DOMAIN}${process.env.PORT == 80 ? "" : `:${process.env.PORT}`}/callback`);
 
     //initializing
     app.use(session({
@@ -171,5 +171,5 @@ module.exports = async (client) => {
         renderTemplate(res, req, "settings.ejs", { guild, settings: storedSettings, alert: "Your settings have been saved." });
     });
 
-    app.listen(client.config.port, null, null, () => console.log(`Dashboard is up and running on port ${config.port}.`));
+    app.listen(process.env.PORT, null, null, () => console.log(`Dashboard is up and running on port ${config.port}.`));
 }
