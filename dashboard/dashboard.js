@@ -69,8 +69,12 @@ module.exports = async (client) => {
         const base = {
             bot: client,
             path: req.path,
-            user: req.isAuthenticated() ? req.user : null
+            user: req.isAuthenticated() ? req.user : null,
+            query: req.query
         };
+        if(req.isAuthenticated()) {
+            base.user.avatarURL = `https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}`;
+        }
 
         res.render(path.resolve(`${templateDir}${path.sep}${template}`), Object.assign(base, data));
     };
