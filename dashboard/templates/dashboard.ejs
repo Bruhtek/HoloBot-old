@@ -19,7 +19,7 @@
           <a href="/dashboard/<%= guild.id %>"
             class="focus:border-blue-300 rounded border bg-transparent border-purple-700 text-purple-700 hover:text-white hover:bg-purple-800 hover:border-purple-800 px-4 py-1 items-center mx-auto"><span class="mr-2"></span>Edit Settings<span class="ml-2"></span></a>
         <% } else { %>
-          <a href="<%= `https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`http://${bot.config.domain}${bot.config.port == 80 ? "" : `:${bot.config.port}`}/callback`)}` %>"
+          <a href="<%= `https://discordapp.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot&guild_id=${guild.id}&response_type=code&redirect_uri=${encodeURIComponent(`http://${process.env.DOMAIN}${process.env.PORT == 80 || process.env.PUBLISHPORT == 0 ? "" : `:${process.env.PORT}`}/callback`)}` %>"
             class="focus:border-blue-300 rounded border bg-transparent border-purple-700 text-purple-700 hover:text-white hover:bg-purple-800 hover:border-purple-800 px-4 py-1 items-center mx-auto"><span class="mr-2"></span>Add Bot<span class="ml-2"></span></a>
         <% } %>
       </div>
