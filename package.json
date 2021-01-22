@@ -24,6 +24,7 @@
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.11.13",
+    "mongoose-int32": "^0.4.1",
     "node-fetch": "^2.6.1",
     "osu-api": "0.0.3",
     "passport": "^0.4.1",

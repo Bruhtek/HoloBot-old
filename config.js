@@ -17,6 +17,7 @@ const config = {
 
   neeeChance: 10,
 
+  messageLevelRatelimit: 60000,
   ratelimit: 30000,
 
   domain: "localhost",

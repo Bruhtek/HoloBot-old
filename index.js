@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var Int32 = require('mongoose-int32');
 const Discord = require("discord.js");
 const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);

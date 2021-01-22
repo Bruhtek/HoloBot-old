@@ -2,8 +2,56 @@ const { WebhookClient } = require('discord.js');
 const ratelimit = new Set();
 const messageRatelimit = new Set();
 
+const mongoose = require('mongoose');
+var Int32 = require('mongoose-int32');
+const guildUserSchema = require.main.require('./schemes/guildUserSchema.js')
+const GuildUser = mongoose.model('guildUser', guildUserSchema, 'guildUser')
+
+async function createGuildUser(id, totalXP, level, xp, guildId) {
+  return new GuildUser({
+    id,
+    totalXP,
+    level,
+    xp,
+    guildId,
+  }).save()
+}
+
+async function findGuildUser(id, guildId) {
+  return await GuildUser.findOne({ id: id, guildId: guildId })
+}
+
 module.exports = async (client, message) => {
   if (message.author.bot) return;
+
+  if(message.guild && !messageRatelimit.has(message.guild.id  + "" + message.author.id)) {
+    let user = await client.connector.then(async () => {
+      return findGuildUser(message.author.id, message.guild.id)
+    })
+    
+    if (!user) {
+      user = await createGuildUser(message.author.id, 0, 0, 0, message.guild.id)
+    }
+
+    var xp = 15 + Math.round(Math.random() * 10);
+    var userXp = user.xp + xp;
+    user.totalXP = user.totalXP + xp;
+
+    if(userXp > 5 * (user.level ^ 2) + (50 * user.level) + 100) {
+      user.level++;
+      user.xp = userXp - (5 * (Math.pow(user.level,2)) + (50 * user.level) + 100);
+    } else {
+      user.xp = userXp;
+    }
+
+    user.save();
+
+    var timeout = client.config.messageLevelRatelimit;
+    messageRatelimit.add(message.guild.id  + ""  + message.author.id);
+    setTimeout(() => {
+      messageRatelimit.delete(message.guild.id  + ""  + message.author.id);
+    }, timeout)
+  }
 
   const settings = message.settings = client.getSettings(message.guild);
 
