@@ -70,7 +70,7 @@ module.exports = async (client, message) => {
     return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
 
   if(cmd && !cmd.conf.enabled) {
-    return message.channel.send("This command is currently dissabled!");
+    return message.channel.send("This command is currently disabled!");
   }
 
   if (level < client.levelCache[cmd.conf.permLevel]) {
