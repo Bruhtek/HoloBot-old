@@ -29,7 +29,7 @@ module.exports = async (client) => {
     passport.use(new Strategy({
         clientID: process.env.ID,
         clientSecret: process.env.SECRET,
-        callbackURL: `http://${client.config.domain}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`,
+        callbackURL: `http://${process.env.DOMAIN}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`,
         scope: ["identify", "guilds"]
     },
     (accessToken, refreshToken, profile, done) => {
@@ -37,7 +37,7 @@ module.exports = async (client) => {
     }));
     //#endregion
 
-    //console.log(`http://${client.config.domain}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`);
+    //console.log(`http://${process.env.DOMAIN}${client.config.port == 80 ? "" : `:${client.config.port}`}/callback`);
 
     //initializing
     app.use(session({
@@ -52,7 +52,7 @@ module.exports = async (client) => {
 
 
     //binding
-    app.locals.domain = client.config.domain.split("//")[1];
+    app.locals.domain = process.env.DOMAIN.split("//")[1];
 
     app.engine("html", ejs.renderFile);
     app.set("view engine", "html");

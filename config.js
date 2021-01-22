@@ -20,7 +20,6 @@ const config = {
   messageLevelRatelimit: 60000,
   ratelimit: 30000,
 
-  domain: "localhost",
   port: 8080,
 
   // PERMISSION LEVEL DEFINITIONS.
