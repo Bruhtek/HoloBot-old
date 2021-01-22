@@ -16,6 +16,8 @@ const MemoryStore = require("memorystore")(session);
 
 module.exports = async (client) => {
 
+    app.use('/static', express.static('resources'))
+
     //absolute path values
     const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`);
     const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
