@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+var Int32 = require('mongoose-int32');
 const Discord = require("discord.js");
 const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
@@ -10,14 +12,18 @@ const client = new Discord.Client({ disableMentions: 'everyone' });
 const keepAlive = require('./server');
 client.config = require("./config.js");
 
-
 client.logger = require("./modules/Logger");
 require("./modules/functions.js")(client);
+
+client.connector = mongoose.connect(client.uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
 client.commands = new Enmap();
 client.aliases = new Enmap();
 
 client.settings = client.config.defaultSettings;
+
+const GuildSettings = require("./schemes/settingsSchema");
+const Dashboard = require("./dashboard/dashboard");
 
 const init = async () => {
 
@@ -45,7 +51,8 @@ const init = async () => {
   }
 
   keepAlive();
-  client.login(process.env.TOKEN);
+  await client.login(process.env.TOKEN);
+  Dashboard(client);
 };
 
 init();

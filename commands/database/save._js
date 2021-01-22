@@ -5,8 +5,7 @@ const User = mongoose.model('user', userSchema, 'user')
 async function createUser(username, id) {
   return new User({
     username,
-    id,
-    date: Date.now()
+    xp,
   }).save()
 }
 
@@ -17,11 +16,10 @@ async function findUser(username) {
 
 exports.run = async (client, message, args, level) => {
     try {
-      connector = mongoose.connect( client.uri, {useNewUrlParser: true, useUnifiedTopology: true});
       const username = args[0];
       const id = message.author.id;
       
-      let user = await connector.then(async () => {
+      let user = await client.connector.then(async () => {
         return findUser(username)
       })
       
@@ -31,7 +29,6 @@ exports.run = async (client, message, args, level) => {
 
       console.log(user);
 
-      mongoose.connection.close();
     }catch (error) { 
       message.channel.send("could not connect");    
       client.logger.error(error);
