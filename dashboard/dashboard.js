@@ -29,7 +29,7 @@ module.exports = async (client) => {
     passport.use(new Strategy({
         clientID: process.env.ID,
         clientSecret: process.env.SECRET,
-        callbackURL: `http://${process.env.DOMAIN}${process.env.PORT == 80 ? "" : `:${process.env.PORT}`}/callback`,
+        callbackURL: `http://${process.env.DOMAIN}${process.env.PORT == 80 || process.env.PUBLISHPORT == 0 ? "" : `:${process.env.PORT}`}/callback`,
         scope: ["identify", "guilds"]
     },
     (accessToken, refreshToken, profile, done) => {
