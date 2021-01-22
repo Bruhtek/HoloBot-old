@@ -5,8 +5,7 @@ const User = mongoose.model('user', userSchema, 'user')
 async function createUser(username, id) {
   return new User({
     username,
-    id,
-    date: Date.now()
+    xp,
   }).save()
 }
 
