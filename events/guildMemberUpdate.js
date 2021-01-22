@@ -11,13 +11,9 @@ module.exports = async (client, oldState, newState) => {
         return;
     }
 
-    connector = mongoose.connect( client.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-
-    let restrict = await connector.then(async () => {
+    let restrict = await client.connector.then(async () => {
       return findRestrict(oldState.id, 0);
     })
-
-    //console.log(restrict);
 
     if(!restrict) {
         return;

@@ -22,9 +22,7 @@ exports.run = async (client, message, args, level) => {
   let mode = args[0];
   let player = args[1];
 
-  connector = mongoose.connect( client.uri, {useNewUrlParser: true, useUnifiedTopology: true});
-
-  let osuUser = await connector.then(async () => {
+  let osuUser = await client.connector.then(async () => {
     return findOsuUser(message.author.id)
   })
 
@@ -129,7 +127,6 @@ exports.run = async (client, message, args, level) => {
           }
         } 
 
-        mongoose.connection.close();
       });
     }
   });

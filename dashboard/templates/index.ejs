@@ -1,0 +1,16 @@
+<%- include("partials/header", { bot, user, path, query, title: "Home" }) %>
+
+<div class="py-12 bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <a href="/dashboard">Go to Dashboard</a><br>
+        </div>  
+    </div>  
+</div>
+
+<% if (query.a == 'true') { %>
+    <a href="?a=false">False</a>
+<% } %>
+
+
+<%- include("partials/footer") %>
