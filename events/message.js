@@ -1,5 +1,6 @@
 const { WebhookClient } = require('discord.js');
 const ratelimit = new Set();
+const messageRatelimit = new Set();
 
 module.exports = async (client, message) => {
   if (message.author.bot) return;
@@ -32,9 +33,11 @@ module.exports = async (client, message) => {
     message.react("🇦");
   }
 
-  if(message.channel.parent.id == "786153273186975765" && !message.member.roles.cache.has("785422260063698974")) {
-    message.delete();
-    return;
+  if(message.channel.parent) {
+    if(message.channel.parent.id == "786153273186975765" && !message.member.roles.cache.has("785422260063698974")) {
+      message.delete();
+      return;
+    }
   }
 
   // Also good practice to ignore any message that does not start with our prefix,
@@ -65,6 +68,10 @@ module.exports = async (client, message) => {
   // and return a friendly error message.
   if (cmd && !message.guild && cmd.conf.guildOnly)
     return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
+
+  if(cmd && !cmd.conf.enabled) {
+    return message.channel.send("This command is currently dissabled!");
+  }
 
   if (level < client.levelCache[cmd.conf.permLevel]) {
     if (client.settings.systemNotice === "true") {
