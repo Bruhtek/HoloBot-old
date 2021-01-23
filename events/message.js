@@ -37,9 +37,9 @@ module.exports = async (client, message) => {
     var userXp = user.xp + xp;
     user.totalXP = user.totalXP + xp;
 
-    if(userXp > 5 * (user.level ^ 2) + (50 * user.level) + 100) {
+    if(userXp > 5 * (Math.pow(user.level,2)) + (50 * user.level) + 100) {
       user.level++;
-      user.xp = userXp - (5 * (Math.pow(user.level,2)) + (50 * user.level) + 100);
+      user.xp = Math.max(userXp - (5 * (Math.pow(user.level,2)) + (50 * user.level) + 100), 0);
     } else {
       user.xp = userXp;
     }
