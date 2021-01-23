@@ -24,6 +24,10 @@ async function findGuildUser(id, guildId) {
 module.exports = async (client, message) => {
   if (message.author.bot) return;
 
+  const user = await client.getUser(message);
+
+  message.user = user;
+
   if(message.guild && !messageRatelimit.has(message.guild.id  + "" + message.author.id)) {
     let user = await client.connector.then(async () => {
       return findGuildUser(message.author.id, message.guild.id)
@@ -33,7 +37,11 @@ module.exports = async (client, message) => {
       user = await createGuildUser(message.author.id, 0, 0, 0, message.guild.id)
     }
 
-    var xp = 15 + Math.round(Math.random() * 10);
+    var xp = 15 + Math.round(Math.random() * 10) + message.user.xpadd;
+    if(message.user.xpmulti != 0) {
+      xp = xp * message.user.xpmulti;
+    }
+    console.log(xp);
     var userXp = user.xp + xp;
     user.totalXP = user.totalXP + xp;
 
@@ -130,7 +138,7 @@ module.exports = async (client, message) => {
     } else {
       return;
     }
-  }
+  } 
 
   // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
   // The "level" command module argument will be deprecated in the future.

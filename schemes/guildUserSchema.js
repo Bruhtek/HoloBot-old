@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var Int32 = require('mongoose-int32');
 
-const userSchema = new mongoose.Schema({
+const guildUserSchema = new mongoose.Schema({
     id: String,
     totalXP: Int32,
     level: Int32,
@@ -9,4 +9,4 @@ const userSchema = new mongoose.Schema({
     guildId: String
 })
 
-module.exports = userSchema;
+module.exports = guildUserSchema;

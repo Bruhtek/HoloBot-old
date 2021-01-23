@@ -1,3 +1,7 @@
+const mongoose = require('mongoose');
+const userSchema = require.main.require('./schemes/userSchema.js');
+const User = mongoose.model('user', userSchema, 'user');
+
 const config = {
   // Bot Owner, level 10 by default. A User ID. Should never be anything else than the bot owner's ID.
   "ownerID": "273889248648757249",
@@ -5,7 +9,6 @@ const config = {
   // Bot Admins, level 9 by default. Array of user ID strings.
   "admins": ["397420846781693953", "273889248648757249"],
 
-  "testers": ["751838537124544562"],
 
   //DONT LEAVE ANYTHING BLANK
   "defaultSettings" : {
@@ -72,11 +75,6 @@ const config = {
       check: (message) => message.channel.type === "text" ? (message.guild.ownerID === message.author.id ? true : false) : false
     },
 
-    { level: 8,
-      name: "Bot Tester",
-      check: (message) => config.testers.includes(message.author.id)
-    },
-
     // Bot Admin has some limited access like rebooting the bot or reloading commands.
     { level: 9,
       name: "Bot Admin",
@@ -93,4 +91,23 @@ const config = {
 
 };
 
-module.exports = config;
+async function getUser (message) {
+  var user =  await User.findOne({ id: message.author.id });
+  
+  if(!user) {
+    user = new User({
+      id: message.author.id,
+      perks: [],
+      xpadd: 0,
+      xpmulti: 0,
+      ratelimit: -1,
+    }).save();
+  }
+
+  return user;
+}
+
+module.exports = {
+  config,
+  getUser
+};

@@ -10,7 +10,8 @@ require('dotenv').config()
 const client = new Discord.Client({ disableMentions: 'everyone' });
 
 const keepAlive = require('./server');
-client.config = require("./config.js");
+client.config = require("./config.js").config;
+client.getUser = require("./config.js").getUser;
 
 client.logger = require("./modules/Logger");
 require("./modules/functions.js")(client);
