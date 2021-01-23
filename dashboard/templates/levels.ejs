@@ -2,7 +2,7 @@
 
   <div class='grid space-x-2 mxauto xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4'>
     <% user.guilds.forEach(guild => {
-      if(!guild.members.me) return;
+      if(!bot.guilds.cache.get(guild.id)) return;
       %>
 
     <div class="card rounded bg-gray-800 transition-shadow shadow-xl hover:shadow-xl mt-20">
