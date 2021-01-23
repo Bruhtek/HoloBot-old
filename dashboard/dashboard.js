@@ -8,8 +8,10 @@ const config = require("../config");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const Discord = require("discord.js");
+const mongoose = require("mongoose");
 const GuildSettings = require("../schemes/settingsSchema");
-
+const guildUserSchema = require.main.require('./schemes/guildUserSchema.js')
+const GuildUser = mongoose.model('guildUser', guildUserSchema, 'guildUser');
 //initialize web ui
 const app = express();
 const MemoryStore = require("memorystore")(session);
@@ -129,6 +131,10 @@ module.exports = async (client) => {
         renderTemplate(res, req, "dashboard.ejs", { perms: Discord.Permissions });
     });
 
+    app.get("/levels", isAuth, (req, res) => {
+        renderTemplate(res, req, "levels.ejs", { perms: Discord.Permissions });
+    });
+
     app.get("/dashboard/:guildID", isAuth, async (req, res) => {
 
         const guild = client.guilds.cache.get(req.params.guildID);
@@ -147,6 +153,37 @@ module.exports = async (client) => {
             storedSettings = await GuildSettings.findOne({ gid: guild.id });
         }
         renderTemplate(res, req, "settings.ejs", { guild, settings: storedSettings, alert: null });
+    });
+
+    app.get("/levels/:guildID", isAuth, async (req, res) => {
+
+        const guild = client.guilds.cache.get(req.params.guildID);
+        if (!guild) return res.redirect("/levels");
+        const member = guild.members.cache.get(req.user.id);
+        //yeet him
+        if (!member) return res.redirect("/levels");
+            
+
+
+        var users = await GuildUser.find({ guildId: guild.id });
+
+        var levels = [];
+        users.forEach(user => {
+            levels.push({
+                user: client.users.cache.get(user.id),
+                totalxp: user.totalXP,
+                level: user.level,
+                xp: user.xp
+            });
+        });
+
+        levels.sort((a,b) => (a.totalxp > b.totalxp) ? -1 : 1);
+
+        if(!levels) { 
+            renderTemplate(res, req, "leaderboard.ejs", { guild, levels: levels, alert: "It seems that no one in this guild has spoken yet!" }); 
+        } else {
+            renderTemplate(res, req, "leaderboard.ejs", { guild, levels: levels, alert: null });
+        }
     });
 
     app.post("/dashboard/:guildID", isAuth, async (req, res) => {
