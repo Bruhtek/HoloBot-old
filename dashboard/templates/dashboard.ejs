@@ -6,14 +6,14 @@
         if(!permsOnGuild.has("MANAGE_GUILD")) return;
       %>
 
-    <div class="card border border-gray-100 bg-purple-100 transition-shadow shadow-xl hover:shadow-xl mt-20">
+    <div class="card bg-gray-800 rounded transition-shadow shadow-xl hover:shadow-xl mt-20">
       <div
         class="mx-auto h-24 w-24 md rounded-full relative avatar items-end justify-end text-purple-600 -top-16 bg-purple-200 text-purple-100 row-start-1 row-end-3 text-purple-650 ring-1 ring-white">
         <img class="h-24 w-24 md rounded-full relative" src="<% if (guild.icon) { %>https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon%><% } else { %>/static/pictures/question.svg<% } %>"
           alt="">
       </div>
       <div class="text-center justify-center -mt-12 pb-3">
-        <p class="text-center text-gray-800 font-semibold"><%= guild.name %></p>
+        <p class="text-center text-white font-semibold"><%= guild.name %></p>
         <br>
         <% if (bot.guilds.cache.get(guild.id)) { %>
           <a href="/dashboard/<%= guild.id %>"
