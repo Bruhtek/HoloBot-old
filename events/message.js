@@ -120,6 +120,12 @@ module.exports = async (client, message) => {
   // and clean way to grab one of 2 values!
   if (!cmd) return;
 
+  if(cmd.conf.perk) {
+    if(!user.perks.includes(cmd.conf.perk)) {;
+      return;
+    }
+  }
+
   // Some commands may not be useable in DMs. This check prevents those commands from running
   // and return a friendly error message.
   if (cmd && !message.guild && cmd.conf.guildOnly)
