@@ -21,7 +21,7 @@ const config = {
   neeeChance: 10,
 
   messageLevelRatelimit: 60000,
-  ratelimit: 30000,
+  ratelimit: 4000,
 
   port: 8080,
 

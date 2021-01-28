@@ -28,7 +28,7 @@ exports.run = async (client, message, args, level) => {
     aliases: ['ne', 'nee', 'neee', 'neeee', 'neeeee'],
     permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
     logCommand: false,
-    ratelimit: 60000
+    ratelimit: 20000
   };
   
   exports.help = { // MOST IMPORTANT COMMAND PART!!!!!!!!!!!
