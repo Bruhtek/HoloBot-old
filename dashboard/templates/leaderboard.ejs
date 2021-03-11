@@ -26,7 +26,8 @@
 <% } %>
 
     <div class='flex flex-col mxauto'>
-        <% levels.forEach(user => { %>
+        <% levels.forEach(user => { 
+            if(user.user) { %>
             <div
               class="flex rounded-full relative avatar text-purple-600 bg-purple-200 text-purple-100 ring-white">
               <img class="justify-self-start w-0 md:w-24 inline rounded-full relative" src="<%= `https://cdn.discordapp.com/avatars/${user.user.id}/${user.user.avatar}` %>"
@@ -47,7 +48,7 @@
             </div>
             <div class="mb-2 mt-2"><span class="mr-2"></span><span class="ml-2"></span></div>
             
-        <% }); %>
+        <% }}); %>
     </div>
 
 <%- include("partials/footer") %>
