@@ -19,7 +19,7 @@ exports.run = async (client, message, args, level) => {
     var content = "```Tydzien: " + args[0] + " - " + date.format(date.addDays(monday, 4), 'DD.MM') + "```\n";
 
     for(var i = 0; i < 5; i++) {
-        content += "🥳 `" + date.format(date.addDays(monday, i), 'dddd') + "` - Dzien **" + date.format(date.addDays(monday, i), 'DD.MM') + "**" + "\n\n";
+        content += "🥳 `" + date.format(date.addDays(monday, i), 'dddd') + "` - **" + date.format(date.addDays(monday, i), 'DD.MM') + "**" + "\n\n";
     }
 
     var msg = await message.channel.send(content);
@@ -31,7 +31,7 @@ exports.conf = {
     enabled: true,
     guildOnly: true,
     aliases: ['week'],
-    permLevel: "Bot Owner", // IMPORTANT! SET THIS EARLY!!!
+    permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
     logCommand: false
 };
 

@@ -9,17 +9,17 @@ exports.run = async (client, message, args, level) => {
     if(!msg || msg.author.id != client.user.id) return message.reply("This message doesn't exist or it was not send by HoloBot!");
 
     var content = msg.content;
-    var dzienFind = "Dzien **" + args[1] + "**";
-    //var dzienRegex = /(Dzien )[*][*][0-9][0-9][.][0-9][0-9][*][*]/g;
+    var dzienFind = " - **" + args[1] + "**";
 
     var dzien = content.indexOf(dzienFind);
     if(dzien == -1) {
         return message.reply("You provided wrong date! It isn't in this message!")
     } 
 
-    dzien = content.indexOf(dzienFind) + 15;
+    dzien = content.indexOf(dzienFind) + 12;
 
-    var reply = await client.awaitReply(message, "Type the title now! If you want to add any images, attach them to your message!");
+    var q = await message.channel.send("Type the title now! If you want to add any images, attach them to your message!");
+    var reply = await client.awaitReply(message);
 
     if(reply) {
         if(message.content) {
@@ -36,6 +36,10 @@ exports.run = async (client, message, args, level) => {
             }
             var c = content.slice(0, dzien) + "\n" + " - " + reply.content + imgurUrl + content.slice(dzien);
             msg.edit(c);
+
+            message.delete();
+            reply.delete();
+            q.delete();
         } else {
             return message.reply("Please type the title!");
         }
@@ -48,7 +52,7 @@ exports.conf = {
     enabled: true,
     guildOnly: true,
     aliases: ['event', 'aevent'],
-    permLevel: "Bot Owner", // IMPORTANT! SET THIS EARLY!!!
+    permLevel: "User", // IMPORTANT! SET THIS EARLY!!!
     logCommand: false
 };
 
