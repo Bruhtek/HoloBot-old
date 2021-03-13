@@ -41,7 +41,6 @@ module.exports = async (client, message) => {
     if(message.user.xpmulti != 0) {
       xp = xp * message.user.xpmulti;
     }
-    console.log(xp);
     var userXp = user.xp + xp;
     user.totalXP = user.totalXP + xp;
 
