@@ -8,44 +8,17 @@ exports.run = async (client, message, args, level) => {
 
     var content = msg.content;
     var dzienFind = "Dzien **" + args[1] + "**";
-    var dzienRegex = /(Dzien )[*][*][0-9][0-9][.][0-9][0-9][*][*]/g;
+    //var dzienRegex = /(Dzien )[*][*][0-9][0-9][.][0-9][0-9][*][*]/g;
 
     var dzien = content.indexOf(dzienFind);
     if(dzien == -1) {
-        var toRemove = content.indexOf('Message ID:');
-        var cont = content.slice(0, toRemove);
-        var toAdd = content.slice(toRemove);
-        
-        var days = cont.match(dzienRegex);
-        
-        if(!days) {
-            cont += "Dzien **" + args[1] + "**" + "\n\n";
-        } else {
-            var dates = [];
-            days.forEach(day => {
-                dates.unshift(day.slice(8, 13));
-            });
-            
-            dates.forEach(date => {
-                // month is equal, check only the day
-                if(date.slice(0 , 2)*1 < args[1].slice(0, 2)*1 && date.slice(3 , 5)*1 == args[1].slice(3, 5)*1) {
-                    console.log("d");
-                }
-                //month is higher, disregard everything else
-                if(date.slice(3 , 5)*1 < args[1].slice(3, 5)*1) {
-                    console.log("m");
-                }
-            });
-        }
-
-        msg.edit(cont + toAdd);
+        return message.reply("You provided wrong date! It isn't in this message!")
     } 
 
     dzien = content.indexOf(dzienFind) + 15;
 
-    var c = content.slice(0, dzien) + "\n" + args[2] + content.slice(dzien);
-    console.log(c);
-    //msg.edit(c);
+    var c = content.slice(0, dzien) + "\n" + " - " + args[2] + content.slice(dzien);
+    msg.edit(c);
 };
   
 exports.conf = {
