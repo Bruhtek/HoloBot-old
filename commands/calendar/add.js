@@ -1,5 +1,7 @@
+var imgur = require('imgur');
+
 exports.run = async (client, message, args, level) => {
-    if(!args[0] || !args[1] || !args[2]) return message.reply("You haven't provided the date, message id or the title!");
+    if(!args[0] || !args[1]) return message.reply("You haven't provided the date or the message id");
     var regexDate = /[0-9]+[0-9]+[.]+[0-9]+[0-9]/g;
     if(!args[1].match(regexDate) || args[1].length != 5) return message.reply("Please provide the date in the format of `day.month`, like `23.03`");
 
@@ -17,8 +19,29 @@ exports.run = async (client, message, args, level) => {
 
     dzien = content.indexOf(dzienFind) + 15;
 
-    var c = content.slice(0, dzien) + "\n" + " - " + args[2] + content.slice(dzien);
-    msg.edit(c);
+    var reply = await client.awaitReply(message, "Type the title now! If you want to add any images, attach them to your message!");
+
+    if(reply) {
+        if(message.content) {
+            var imgurUrl = "";
+            if(reply.attachments.array()[0]) {
+                var url = reply.attachments.array()[0].attachment;
+
+                await imgur.setClientId(process.env.IMGURID);
+                await imgur.uploadUrl(url).then(function (json) {
+                    imgurUrl = " (" + json.link + ")";
+                }).catch(function (err) {
+                    console.error(err.message);
+                })
+            }
+            var c = content.slice(0, dzien) + "\n" + " - " + reply.content + imgurUrl + content.slice(dzien);
+            msg.edit(c);
+        } else {
+            return message.reply("Please type the title!");
+        }
+    } else {
+        return message.reply("Timeout!");
+    }
 };
   
 exports.conf = {
@@ -32,6 +55,6 @@ exports.conf = {
 exports.help = {
     name: "addevent",
     category: "Calendar",
-    description: "addevent messageID date title",
-    usage: "addevent 82012356123321 15.03 Title is here"
+    description: "addevent messageID date",
+    usage: "addevent 82012356123321 15.03"
 };
