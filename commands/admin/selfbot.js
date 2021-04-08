@@ -19,7 +19,7 @@ exports.run = async (client, msg, args, level) => {
 };
 
 exports.conf = {
-  enabled: false,
+  enabled: true,
   guildOnly: true,
   aliases: ["sbot"],
   permLevel: "Bot Owner", // IMPORTANT! SET THIS EARLY!!!
