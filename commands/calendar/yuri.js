@@ -2,7 +2,7 @@ const date = require('date-and-time');
 
 exports.run = async (client, message, args, level) => {
     const now = new Date();
-    const yuriTime = date.parse('13:00:00 ' + date.format(now, 'DD-MM-YYYY'), 'HH:mm:ss DD-MM-YYYY');
+    var yuriTime = date.parse('13:00:00 ' + date.format(now, 'DD-MM-YYYY'), 'HH:mm:ss DD-MM-YYYY');
     if(date.format(now, 'HH') >= 13) {
         yuriTime = date.addDays(yuriTime, 1);
     }
