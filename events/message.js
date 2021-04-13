@@ -89,7 +89,7 @@ module.exports = async (client, message) => {
   }
 
   if(message.channel.parent) {
-    if(message.channel.parent.id == "786153273186975765" && !message.member.roles.cache.has("785422260063698974")) {
+    if(message.channel.parent.id == "786153273186975765" && !message.member.roles.cache.has("785422260063698974") && message.author.id != "353930309886279682") {
       message.delete();
       return;
     }
