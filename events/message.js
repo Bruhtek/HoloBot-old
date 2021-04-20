@@ -84,7 +84,7 @@ module.exports = async (client, message) => {
         }).catch(e => client.logger.error(e));
   }
 
-  if((message.content.startsWith('b') || message.content.startsWith('B')) && message.author.id == "600078171198586899") {
+  if((message.content.startsWith('b') || message.content.startsWith('B')) && message.author.id == "397420846781693953") {
     message.react("🇦");
   }
 
