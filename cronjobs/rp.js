@@ -11,7 +11,7 @@ let connector;
 let c;
 
 exports.setup = async (client) => {
-    channel = client.channels.cache.get('834861877636497461');
+    channel = client.channels.cache.get(client.config.monitorChannelID);
     
     connector = client.connector;
     c = client;
