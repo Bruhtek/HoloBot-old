@@ -19,6 +19,7 @@ const config = {
   },
 
   neeeChance: 10,
+  monitorChannelID: "836292027019952178",
 
   messageLevelRatelimit: 60000,
   ratelimit: 4000,

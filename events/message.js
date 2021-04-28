@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 var Int32 = require('mongoose-int32');
 const guildUserSchema = require.main.require('./schemes/guildUserSchema.js')
 const GuildUser = mongoose.model('guildUser', guildUserSchema, 'guildUser')
+const lastMessageSchema = require.main.require('./schemes/lastMessageSchema.js')
+const LastMessage = mongoose.model('lastMessage', lastMessageSchema, 'lastMessage')
 
 async function createGuildUser(id, totalXP, level, xp, guildId) {
   return new GuildUser({
@@ -17,6 +19,13 @@ async function createGuildUser(id, totalXP, level, xp, guildId) {
   }).save()
 }
 
+async function createLastMessage(userID) {
+  return new LastMessage({
+    userID: userID,
+    date: Date.now()
+  }).save();
+}
+
 async function findGuildUser(id, guildId) {
   return await GuildUser.findOne({ id: id, guildId: guildId })
 }
@@ -25,9 +34,9 @@ module.exports = async (client, message) => {
   if (message.author.bot) return;
 
   const user = await client.getUser(message);
-
   message.user = user;
 
+  //leveling
   if(message.guild && !messageRatelimit.has(message.guild.id  + "" + message.author.id)) {
     let user = await client.connector.then(async () => {
       return findGuildUser(message.author.id, message.guild.id)
@@ -63,12 +72,12 @@ module.exports = async (client, message) => {
   const settings = message.settings = client.getSettings(message.guild);
 
   // Checks if the bot was mentioned, with no message after it, returns the prefix.
-  
   const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
   if (message.content.match(prefixMention)) {
     return message.reply(`My prefix on this guild is \`${client.settings.prefix}\``);
   }
 
+  //#region Basically commands
   if(message.content.startsWith(`I'm `) && message.content.length > 4) {
     const link = "https://cdn.myanimelist.net/r/360x360/images/characters/12/413065.jpg?s=c9020da943303fdb7f40c4b2ab383bbb";
     const nick = `Marine "Senchou" Houshou`;
@@ -94,6 +103,22 @@ module.exports = async (client, message) => {
       return;
     }
   }
+  //#endregion
+
+  //#region Last Message Checking
+  if(message.channel.id == client.config.monitorChannelID) {
+    let lastMessage = await client.connector.then(async () => {
+      return await LastMessage.findOne({ userID: message.author.id });
+    })
+
+    if (!lastMessage) {
+      lastMessage = await createLastMessage(message.author.id)
+    } 
+
+    lastMessage.date = Date.now();
+    lastMessage.save();
+  }
+  //#endregion
 
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.

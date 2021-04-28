@@ -53,6 +53,11 @@ const init = async () => {
 
   keepAlive();
   await client.login(process.env.TOKEN);
+
+  const crons = await readdir("./cronjobs/");
+  client.logger.log(`Loading a total of ${crons.length} cron-jobs.`);
+  client.crons = crons;
+
   Dashboard(client);
 };
 
