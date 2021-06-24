@@ -9,7 +9,7 @@ let fbDiscordChannelId = "857692851407552513";
 exports.setup = async (client) =>
 {
 	const api = await facebookLogin({ appState: JSON.parse(fs.readFileSync('./appState.json').toString()) }, { listenEvents: true });
-	login({ appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8').toString()) }, async (err, apiUser) =>
+	login({ appState: JSON.parse(fs.readFileSync('./appState.json', 'utf8').toString()) }, async (err, apiUser) =>
 	{
 		let channel = client.channels.cache.get(fbDiscordChannelId);
 
