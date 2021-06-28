@@ -21,7 +21,6 @@
     "enmap": "^5.3.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "facebook-chat-api": "github:Schmavery/facebook-chat-api",
     "imgur": "^0.3.2",
     "jimp": "^0.14.0",
     "memorystore": "^1.6.4",
@@ -33,8 +32,7 @@
     "osu-api": "0.0.3",
     "passport": "^0.4.1",
     "passport-discord": "^0.1.4",
-    "readdirp": "^3.5.0",
-    "ts-messenger-api": "^1.0.3"
+    "readdirp": "^3.5.0"
   },
   "repository": {
     "type": "git",
