@@ -62,9 +62,6 @@ const init = async () =>
 	client.logger.log(`Loading a total of ${crons.length} cron-jobs.`);
 	client.crons = crons;
 
-	const fb = require("./modules/facebook/main");
-	fb.setup(client);
-
 	Dashboard(client);
 };
 
